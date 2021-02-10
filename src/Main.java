@@ -21,8 +21,11 @@ public class Main {
                 String[] animals = line.split(" ");
                 for (String animal_name : animals) {
                     Animal animal = factory.generateAnimal(animal_name);
-                    animal.printSound();
-                    animal.printName();
+                    if (animal != null){
+                        animal.printSound();
+                        animal.printName();
+                    }
+
                 }
             }
         }
