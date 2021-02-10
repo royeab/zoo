@@ -13,8 +13,11 @@ public class Main {
         // Make sure file can be successfully opened
         try {
             Scanner sc = new Scanner(srcFile);
+
+            // This while loop makes sure we read all lines in the file
             while(sc.hasNextLine()){
                 String line = sc.nextLine();
+                // Splits the string based on spaces
                 String[] animals = line.split(" ");
                 for (String animal_name : animals) {
                     Animal animal = factory.generateAnimal(animal_name);
@@ -24,6 +27,7 @@ public class Main {
             }
         }
 
+        // When File not found prints error and call stack
         catch (FileNotFoundException error){
             System.out.println("The file provided was not found");
             error.printStackTrace();
