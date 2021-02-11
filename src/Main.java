@@ -27,10 +27,9 @@ public class Main {
     // Receives File with animal names separated by spaces and prints their names and sounds
     public static void printAnimals(String fileLoc) throws FileNotFoundException {
         ArrayList<String> animals = getNamesFromFile(fileLoc);
-        AnimalFactory factory = new AnimalFactory();
 
         for (String animalName : animals) {
-            Animal animal = factory.generateAnimal(animalName);
+            Animal animal = AnimalFactory.generateAnimal(animalName);
             if (animal != null) {
                 animal.printSound();
                 animal.printName();

@@ -13,7 +13,7 @@ public class AnimalFactory {
         animalDictionary.put(CAT_NAME, new Cat());
     }
 
-    public Animal generateAnimal(String animalName) {
+    public static Animal generateAnimal(String animalName) {
         return animalDictionary.get(animalName);
     }
 }
