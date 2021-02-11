@@ -53,13 +53,9 @@ public class Main {
     }
 
     private static void generateAnimalAndPrintDetails(String animalName){
-        Animal generatedAnimal = AnimalFactory.generateAnimal(animalName);
-        if (generatedAnimal != null) {
-            generatedAnimal.printSound();
-            generatedAnimal.printName();
-        }
-        else {
-            throw new InvalidAnimalName(animalName);
-        }
+        AnimalFactory animalFactory = new AnimalFactory();
+        Animal generatedAnimal = animalFactory.generateAnimal(animalName);
+        generatedAnimal.printSound();
+        generatedAnimal.printName();
     }
 }

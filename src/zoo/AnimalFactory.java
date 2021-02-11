@@ -2,18 +2,22 @@ package zoo;
 import java.util.HashMap;
 
 public class AnimalFactory {
-    public static String DOG_NAME = "Dog";
-    public static String DUCK_NAME = "Duck";
-    public static String CAT_NAME = "Cat";
+    public static final String DOG_NAME = "Dog";
+    public static final String DUCK_NAME = "Duck";
+    public static final String CAT_NAME = "Cat";
 
-    public static final HashMap<String, Animal> animalDictionary = new HashMap<String, Animal>();
-    static {
-        animalDictionary.put(DOG_NAME, new Dog());
-        animalDictionary.put(DUCK_NAME, new Duck());
-        animalDictionary.put(CAT_NAME, new Cat());
-    }
+    public final HashMap<String, Animal> animalDictionary = new HashMap<String, Animal>();
 
-    public static Animal generateAnimal(String animalName) {
+    public Animal generateAnimal(String animalName) {
+        if (!animalDictionary.containsKey(animalName)) {
+            switch (animalName) {
+                case DOG_NAME -> animalDictionary.put(DOG_NAME, new Dog());
+                case DUCK_NAME -> animalDictionary.put(DUCK_NAME, new Duck());
+                case CAT_NAME -> animalDictionary.put(CAT_NAME, new Cat());
+                default -> throw new InvalidAnimalName(animalName);
+            }
+        }
+
         return animalDictionary.get(animalName);
     }
 }
