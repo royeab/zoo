@@ -1,6 +1,7 @@
 import zoo.*;
 
 import java.io.File;
+import java.util.List;
 import java.util.Scanner;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -10,40 +11,55 @@ public class Main {
     public static final String ANIMAL_SPLIT_REGEX = " ";
     public static final String INVALID_FILE_MESSAGE = "The file provided was not found";
 
-    private static ArrayList<String> getNamesFromFile(String fileLoc) throws FileNotFoundException {
-        ArrayList<String> names = new ArrayList<String>();
-        File srcFile = new File(fileLoc);
-        Scanner sc = new Scanner(srcFile);
-
-        while (sc.hasNextLine()) {
-            String line = sc.nextLine();
-            String[] animals = line.split(ANIMAL_SPLIT_REGEX);
-            names.addAll(Arrays.asList(animals));
-        }
-
-        return names;
-    }
-
-    // Receives File with animal names separated by spaces and prints their names and sounds
-    public static void printAnimals(String fileLoc) throws FileNotFoundException {
-        ArrayList<String> animals = getNamesFromFile(fileLoc);
-
-        for (String animalName : animals) {
-            Animal animal = AnimalFactory.generateAnimal(animalName);
-            if (animal != null) {
-                animal.printSound();
-                animal.printName();
-            }
-        }
-    }
-
-
     public static void main(String[] args) {
+        List<String> animalNames = null;
+
         try {
-            printAnimals(args[0]);
-        } catch (FileNotFoundException error) {
+            animalNames = getAnimalNamesFromGivenFile(args[0]);
+        }
+        catch (FileNotFoundException fileNotFoundException) {
             System.out.println(INVALID_FILE_MESSAGE);
-            error.printStackTrace();
+            fileNotFoundException.printStackTrace();
+            System.exit(1);
+        }
+
+        try {
+            generateAnimalsFromListAndPrintDetails(animalNames);
+        }
+        catch (InvalidAnimalName invalidAnimalNameException) {
+            System.out.println(invalidAnimalNameException.getReceivedName() + " is not a valid animal name!");
+        }
+
+    }
+
+    public static void generateAnimalsFromListAndPrintDetails(List<String> animalNames)  throws InvalidAnimalName {
+        for (String animalName : animalNames) {
+            generateAnimalAndPrintDetails(animalName);
+        }
+    }
+
+    public static ArrayList<String> getAnimalNamesFromGivenFile(String fileLocation) throws FileNotFoundException {
+        ArrayList<String> animalNames = new ArrayList<String>();
+        File srcFile = new File(fileLocation);
+        Scanner scanner = new Scanner(srcFile);
+
+        while (scanner.hasNextLine()) {
+            String line = scanner.nextLine();
+            String[] animalNamesArray = line.split(ANIMAL_SPLIT_REGEX);
+            animalNames.addAll(Arrays.asList(animalNamesArray));
+        }
+
+        return animalNames;
+    }
+
+    private static void generateAnimalAndPrintDetails(String animalName){
+        Animal generatedAnimal = AnimalFactory.generateAnimal(animalName);
+        if (generatedAnimal != null) {
+            generatedAnimal.printSound();
+            generatedAnimal.printName();
+        }
+        else {
+            throw new InvalidAnimalName(animalName);
         }
     }
 }
