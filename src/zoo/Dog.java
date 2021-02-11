@@ -1,13 +1,11 @@
 package zoo;
 
-public class Dog implements Animal {
-    @Override
-    public void printName(){
-        System.out.println("Dog");
-    }
+public class Dog extends Animal {
+    public static final String DOG_NAME = "Dog";
+    public static final String DOG_SOUND = "HOW";
 
-    @Override
-    public void printSound(){
-        System.out.println("How");
+    public Dog() {
+        animalName = DOG_NAME;
+        animalSound = DOG_SOUND;
     }
 }

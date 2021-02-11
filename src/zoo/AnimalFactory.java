@@ -1,19 +1,19 @@
 package zoo;
+import java.util.HashMap;
 
 public class AnimalFactory {
-    public Animal generateAnimal(String name) {
-        switch(name) {
-            case "Dog":
-                return new Dog();
+    public static String DOG_NAME = "Dog";
+    public static String DUCK_NAME = "Duck";
+    public static String CAT_NAME = "Cat";
 
-            case "Cat":
-                return new Cat();
+    public static final HashMap<String, Animal> animalDictionary = new HashMap<String, Animal>();
+    static {
+        animalDictionary.put(DOG_NAME, new Dog());
+        animalDictionary.put(DUCK_NAME, new Duck());
+        animalDictionary.put(CAT_NAME, new Cat());
+    }
 
-            case "Duck":
-                return new Duck();
-
-            default:
-                return null;
-        }
+    public Animal generateAnimal(String animalName) {
+        return animalDictionary.get(animalName);
     }
 }

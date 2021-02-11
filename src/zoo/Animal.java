@@ -1,6 +1,14 @@
 package zoo;
 
-public interface Animal {
-    void printName();
-    void printSound();
+public abstract class Animal {
+    protected String animalName;
+    protected String animalSound;
+
+    public void printName() {
+        System.out.println(animalName);
+    }
+
+    public void printSound() {
+        System.out.println(animalSound);
+    }
 }

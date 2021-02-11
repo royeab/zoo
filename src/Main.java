@@ -1,4 +1,5 @@
 import zoo.*;
+
 import java.io.File;
 import java.util.Scanner;
 import java.io.FileNotFoundException;
@@ -6,43 +7,43 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class Main {
-    private static ArrayList<String> getNames(String fileloc) throws FileNotFoundException{
+    public static final String ANIMAL_SPLIT_REGEX = " ";
+    public static final String INVALID_FILE_MESSAGE = "The file provided was not found";
+
+    private static ArrayList<String> getNamesFromFile(String fileLoc) throws FileNotFoundException {
         ArrayList<String> names = new ArrayList<String>();
-        File srcFile = new File(fileloc);
+        File srcFile = new File(fileLoc);
         Scanner sc = new Scanner(srcFile);
 
-        while(sc.hasNextLine()) {
+        while (sc.hasNextLine()) {
             String line = sc.nextLine();
-            String[] animals = line.split(" ");
+            String[] animals = line.split(ANIMAL_SPLIT_REGEX);
             names.addAll(Arrays.asList(animals));
         }
+
         return names;
     }
 
     // Receives File with animal names separated by spaces and prints their names and sounds
-    public static void PrintAnimals(String fileloc) throws FileNotFoundException {
-        ArrayList<String> animals = getNames(fileloc);
+    public static void printAnimals(String fileLoc) throws FileNotFoundException {
+        ArrayList<String> animals = getNamesFromFile(fileLoc);
         AnimalFactory factory = new AnimalFactory();
 
-        for (String animal_name : animals) {
-            Animal animal = factory.generateAnimal(animal_name);
-            if (animal != null){
+        for (String animalName : animals) {
+            Animal animal = factory.generateAnimal(animalName);
+            if (animal != null) {
                 animal.printSound();
                 animal.printName();
             }
-
         }
     }
 
 
-
-
     public static void main(String[] args) {
-        try{
-            PrintAnimals(args[0]);
-        }
-        catch (FileNotFoundException error){
-            System.out.println("The file provided was not found");
+        try {
+            printAnimals(args[0]);
+        } catch (FileNotFoundException error) {
+            System.out.println(INVALID_FILE_MESSAGE);
             error.printStackTrace();
         }
     }
