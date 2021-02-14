@@ -1,14 +1,17 @@
 package zoo;
+import utilities.LogSetup;
+import java.util.logging.Logger;
 
 public abstract class Animal {
     protected String animalName;
     protected String animalSound;
+    protected final Logger logger = Logger.getLogger(LogSetup.LOGGER_NAME);
 
     public void printName() {
-        System.out.println(animalName);
+        logger.info(animalName);
     }
 
     public void printSound() {
-        System.out.println(animalSound);
+        logger.info(animalSound);
     }
 }

@@ -1,4 +1,6 @@
-package zoo;
+package zoo.animal;
+
+import zoo.Animal;
 
 public class Cat extends Animal {
     public static final String CAT_NAME = "Cat";

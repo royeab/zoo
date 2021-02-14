@@ -1,4 +1,7 @@
 package zoo;
+import zoo.animal.*;
+import zoo.exceptions.InvalidAnimalName;
+
 import java.util.HashMap;
 
 public class AnimalFactory {
@@ -8,7 +11,7 @@ public class AnimalFactory {
 
     public final HashMap<String, Animal> animalDictionary = new HashMap<String, Animal>();
 
-    public Animal generateAnimal(String animalName) {
+    public Animal generateAnimal(String animalName) throws InvalidAnimalName{
         if (!animalDictionary.containsKey(animalName)) {
             switch (animalName) {
                 case DOG_NAME -> animalDictionary.put(DOG_NAME, new Dog());
