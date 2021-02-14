@@ -1,4 +1,4 @@
-package zoo;
+package zoo.animal;
 import utilities.LogSetup;
 import java.util.logging.Logger;
 

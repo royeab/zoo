@@ -1,7 +1,5 @@
 package zoo.animal;
 
-import zoo.Animal;
-
 public class Dog extends Animal {
     public static final String DOG_NAME = "Dog";
     public static final String DOG_SOUND = "HOW";
