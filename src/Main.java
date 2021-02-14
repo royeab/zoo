@@ -1,18 +1,18 @@
-import utilities.FileUtilities;
+import utilities.FileUtils.FileUtilities;
+import utilities.Log.exceptions.LogFileException;
 import zoo.*;
 
 import java.util.List;
 import java.io.FileNotFoundException;
 import java.util.logging.Logger;
-import utilities.LogSetup;
+import utilities.Log.LogSetup;
 import zoo.animal.Animal;
 import zoo.exceptions.InvalidAnimalName;
-
-import java.io.IOException;
 
 public class Main {
 
     public static final String INVALID_FILE_MESSAGE = "The file provided was not found\n";
+    public static final String LOGGER_EXCEPTION_MESSAGE = "An error has occurred when creating a log file\n";
     public static final String NAME_SPLIT_BY_SPACE = " ";
 
     private final static Logger logger = Logger.getLogger(LogSetup.LOGGER_NAME);
@@ -21,8 +21,8 @@ public class Main {
         try {
             LogSetup.setupLog();
         }
-        catch (IOException exception) {
-            exception.printStackTrace();
+        catch (LogFileException ioException) {
+            logger.severe(LOGGER_EXCEPTION_MESSAGE + ioException);
             return;
         }
 

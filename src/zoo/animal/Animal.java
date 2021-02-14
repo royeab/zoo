@@ -1,5 +1,5 @@
 package zoo.animal;
-import utilities.LogSetup;
+import utilities.Log.LogSetup;
 import java.util.logging.Logger;
 
 public abstract class Animal {
