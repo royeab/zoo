@@ -14,8 +14,7 @@ import zoo.exceptions.InvalidAnimalName;
 
 public class Main {
 
-    public static final String INVALID_FILE_MESSAGE = "The file provided was not found\n";
-    public static final String LOGGER_FAILURE_MESSAGE = "An error has occurred when creating a log file\n";
+    public static final String INVALID_FILE_MESSAGE = "The file provided was not found";
     public static final String NAME_SPLIT_BY_SPACE = " ";
 
     private final static Logger logger = LogManager.getLogger();
@@ -51,7 +50,7 @@ public class Main {
         }
 
         catch (InvalidAnimalName invalidAnimalNameException) {
-            logger.log(Level.WARN, invalidAnimalNameException.getMessage() + " is not a valid animal name!\n",
+            logger.log(Level.WARN, invalidAnimalNameException.getMessage(),
                 invalidAnimalNameException);
         }
     }
