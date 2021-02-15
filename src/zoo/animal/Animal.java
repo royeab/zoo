@@ -1,5 +1,4 @@
 package zoo.animal;
-//import utilities.Log.LogSetup;
 import org.apache.logging.log4j.*;
 
 public abstract class Animal {

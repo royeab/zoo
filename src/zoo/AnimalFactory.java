@@ -1,7 +1,6 @@
 package zoo;
 import zoo.animal.*;
 import zoo.exceptions.InvalidAnimalName;
-
 import java.util.HashMap;
 import java.util.Map;
 

@@ -6,6 +6,10 @@ public class InvalidFilePath extends ZooException{
         super();
     }
     public InvalidFilePath(String path) {
-        super(path);
+        super(path + "Is not a valid file path");
+    }
+
+    public InvalidFilePath(String path, Throwable cause) {
+        super(path + "Is not a valid file path", cause);
     }
 }
