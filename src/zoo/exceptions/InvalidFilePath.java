@@ -1,13 +1,11 @@
 package zoo.exceptions;
 
 public class InvalidFilePath extends ZooException{
-    private final String path;
 
-    public InvalidFilePath(String path){
-        this.path = path;
+    public InvalidFilePath(){
+        super();
     }
-
-    public String getPath() {
-        return this.path;
+    public InvalidFilePath(String path) {
+        super(path);
     }
 }

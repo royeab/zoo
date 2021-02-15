@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class FileUtilities {
-    public static List<String> getNames(String fileLocation, String splitCondition) throws FileNotFoundException {
+    public static List<String> getWordsBySplitCondition(String fileLocation, String splitCondition) throws FileNotFoundException {
         List<String> namesList = new ArrayList<>();
         File srcFile = new File(fileLocation);
         Scanner scanner = new Scanner(srcFile);
