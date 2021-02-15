@@ -1,61 +1,50 @@
+import org.apache.logging.log4j.LogManager;
+import utilities.FileUtils.FileUtilities;
 import zoo.*;
-
-import java.io.File;
 import java.util.List;
-import java.util.Scanner;
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
-import java.util.Arrays;
+import org.apache.logging.log4j.*;
+import zoo.animal.Animal;
+import zoo.exceptions.InvalidAnimalName;
 
 public class Main {
-    public static final String ANIMAL_SPLIT_REGEX = " ";
-    public static final String INVALID_FILE_MESSAGE = "The file provided was not found";
+    public static final String NAME_SPLIT_BY_SPACE = " ";
+    public static final boolean STOP_PRINTING_WHEN_INVALID_NAME = false;
+    private final static Logger logger = LogManager.getLogger();
 
     public static void main(String[] args) {
-        List<String> animalNames = null;
+        final String animalNameFilePath = args[0];
 
+        List<String> animalNames;
         try {
-            animalNames = getAnimalNamesFromGivenFile(args[0]);
+            animalNames = FileUtilities.getWordsBySplitCondition(animalNameFilePath, NAME_SPLIT_BY_SPACE);
         }
         catch (FileNotFoundException fileNotFoundException) {
-            System.out.println(INVALID_FILE_MESSAGE);
-            fileNotFoundException.printStackTrace();
-            System.exit(1);
+            logger.log(Level.FATAL, fileNotFoundException.getMessage(), fileNotFoundException);
+            return;
         }
 
-        try {
-            generateAnimalsFromListAndPrintDetails(animalNames);
-        }
-        catch (InvalidAnimalName invalidAnimalNameException) {
-            System.out.println(invalidAnimalNameException.getReceivedName() + " is not a valid animal name!");
-        }
-
+        printAllAnimalsDetails(animalNames);
     }
 
-    public static void generateAnimalsFromListAndPrintDetails(List<String> animalNames)  throws InvalidAnimalName {
-        for (String animalName : animalNames) {
-            generateAnimalAndPrintDetails(animalName);
-        }
-    }
-
-    public static ArrayList<String> getAnimalNamesFromGivenFile(String fileLocation) throws FileNotFoundException {
-        ArrayList<String> animalNames = new ArrayList<String>();
-        File srcFile = new File(fileLocation);
-        Scanner scanner = new Scanner(srcFile);
-
-        while (scanner.hasNextLine()) {
-            String line = scanner.nextLine();
-            String[] animalNamesArray = line.split(ANIMAL_SPLIT_REGEX);
-            animalNames.addAll(Arrays.asList(animalNamesArray));
-        }
-
-        return animalNames;
-    }
-
-    private static void generateAnimalAndPrintDetails(String animalName){
+    public static void printAllAnimalsDetails(List<String> animalNames) {
         AnimalFactory animalFactory = new AnimalFactory();
-        Animal generatedAnimal = animalFactory.generateAnimal(animalName);
-        generatedAnimal.printSound();
-        generatedAnimal.printName();
+        for (String animalName : animalNames) {
+            try {
+                printAnimalDetails(animalName, animalFactory);
+            }
+            catch (InvalidAnimalName invalidAnimalName) {
+                    logger.log(Level.WARN, invalidAnimalName.getMessage(), invalidAnimalName);
+                    if (STOP_PRINTING_WHEN_INVALID_NAME) {
+                        return;
+                    }
+            }
+        }
+    }
+
+    private static void printAnimalDetails(String animalName, AnimalFactory animalFactory) throws InvalidAnimalName{
+            Animal generatedAnimal = animalFactory.generateAnimal(animalName);
+            generatedAnimal.printSound();
+            generatedAnimal.printName();
     }
 }

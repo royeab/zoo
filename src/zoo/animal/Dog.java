@@ -1,4 +1,4 @@
-package zoo;
+package zoo.animal;
 
 public class Dog extends Animal {
     public static final String DOG_NAME = "Dog";
