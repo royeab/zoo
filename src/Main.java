@@ -6,10 +6,11 @@ import java.io.FileNotFoundException;
 import org.apache.logging.log4j.*;
 import zoo.animal.Animal;
 import zoo.exceptions.InvalidAnimalName;
+import lombok.extern.log4j.Log4j2;
 
+@Log4j2
 public class Main {
     public static final String NAME_SPLIT_BY_SPACE = " ";
-    private final static Logger logger = LogManager.getLogger();
 
     public static void main(String[] args) {
         final String animalNameFilePath = args[0];
@@ -20,7 +21,7 @@ public class Main {
             printAllAnimalsDetails(animalNames);
         }
         catch (FileNotFoundException fileNotFoundException) {
-            logger.log(Level.FATAL, fileNotFoundException.getMessage(), fileNotFoundException);
+            log.log(Level.FATAL, fileNotFoundException.getMessage(), fileNotFoundException);
         }
     }
 
@@ -39,7 +40,7 @@ public class Main {
         }
 
         catch (InvalidAnimalName invalidAnimalName) {
-            logger.log(Level.WARN, invalidAnimalName.getMessage(), invalidAnimalName);
+            log.log(Level.WARN, invalidAnimalName.getMessage(), invalidAnimalName);
         }
     }
 }

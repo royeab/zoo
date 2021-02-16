@@ -1,16 +1,16 @@
 package zoo.animal;
-import org.apache.logging.log4j.*;
+import lombok.extern.log4j.Log4j2;
 
+@Log4j2
 public abstract class Animal {
     protected String animalName;
     protected String animalSound;
-    protected final Logger logger = LogManager.getLogger();
 
     public void printName() {
-        logger.info(animalName);
+        log.info(animalName);
     }
 
     public void printSound() {
-        logger.info(animalSound);
+        log.info(animalSound);
     }
 }
