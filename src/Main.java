@@ -15,9 +15,8 @@ public class Main {
     public static void main(String[] args) {
         final String animalNameFilePath = args[0];
 
-        List<String> animalNames;
         try {
-            animalNames = FileUtilities.getWordsBySplitCondition(animalNameFilePath, NAME_SPLIT_BY_SPACE);
+            List<String> animalNames = FileUtilities.getWordsBySplitCondition(animalNameFilePath, NAME_SPLIT_BY_SPACE);
             printAllAnimalsDetails(animalNames);
         }
         catch (FileNotFoundException fileNotFoundException) {
